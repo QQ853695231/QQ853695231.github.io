@@ -1,52 +1,162 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="theme-color" content="#33474d">
-	<title>FastDFS图片服务器搭建 | Hexo</title>
-	<link rel="stylesheet" href="/css/style.css" />
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
 	
-      <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+			    <title>
+    Hexo
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="miccall" />
     
+    	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
 </head>
-
-<body>
-
-	<header class="header">
-		<nav class="header__nav">
-			
-				<a href="/archives" class="header__link">Archive</a>
-			
-				<a href="/tags" class="header__link">Tags</a>
-			
-				<a href="/atom.xml" class="header__link">RSS</a>
-			
-		</nav>
-		<h1 class="header__title"><a href="/">Hexo</a></h1>
-		<h2 class="header__subtitle"></h2>
-	</header>
-
-	<main>
-		<article>
-	
-		<h1>FastDFS图片服务器搭建</h1>
-	
-	<div class="article__infos">
-		<span class="article__date">2018-06-22</span><br />
+    
 		
-		
-			<span class="article__tags">
-			  	<a class="article__tag-link" href="/tags/图片服务器-fastdfs-CentOS7/">图片服务器,fastdfs,CentOS7</a>
-			</span>
-		
-	</div>
+<!-- Layouts -->
 
-	
 
-	
-		<p>少侠，你是否在寻找一种轻量级的图片存储服务器，来来来，今天老司机带上你路，快快上车……</p>
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">MICCALL</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="团队">
+		                团队
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="图库">
+		                图库
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/miccall" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a title="500px" href="http://500px.com" target="_blank" rel="noopener">
+                            <i class="icon fa fa-500px"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url();background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >FastDFS图片服务器搭建</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <p>少侠，你是否在寻找一种轻量级的图片存储服务器，来来来，今天老司机带上你路，快快上车……</p>
 <p>来来来，骚年，啥也别说了，开始准备素材，把下面表格里面的东东准备好。</p>
 <h3 id="下载素材"><a href="#下载素材" class="headerlink" title="下载素材"></a>下载素材</h3><table>
 <thead>
@@ -129,7 +239,7 @@
 </table>
 <hr>
 <h3 id="安装Nginx服务器与模块FastDFS-nginx-module："><a href="#安装Nginx服务器与模块FastDFS-nginx-module：" class="headerlink" title="安装Nginx服务器与模块FastDFS-nginx-module："></a>安装Nginx服务器与模块FastDFS-nginx-module：</h3><p>fastdfs-nginx-module-master.zip也是源码包，<strong>随着nginx一起编译，安装</strong>。<br>骚年，莫急，安装之前需要对fastdfs-nginx-module-master进行一下简单的配置：<br>进入到fastdfs-nginx-module-master所在的目录：<br><strong>cd /usr/local/src/fastdfs-nginx-module-master/src</strong><br>你会发现名为<strong>config</strong>的文件，打开该文件并编辑，如下所示：</p>
-<p><figure class="figure"><img src="/2018/06/22/hello-world/./images/1515907266176.jpg" alt="config文件"><figcaption class="figure__caption">config文件</figcaption></figure></p>
+<p><img src="/2018/06/22/hello-world/./images/1515907266176.jpg" alt="config文件"></p>
 <p><strong>你只需要找到图片当中红色杠标记行，把这一行里面的所有==local==干掉就行。</strong></p>
 <p>切换到 nginx 解压完以后的目录：<br><strong>cd /usr/local/src/nginx-1.12.2</strong><br>执行：<br><strong>./configure –add-module=/usr/local/src/fastdfs-nginx-module-master/src</strong><br>让你的屏幕飞一会儿吧……</p>
 <blockquote>
@@ -144,9 +254,9 @@
 </blockquote>
 <p>修改刚刚复制到/etc/fdfs下的mod_fastdfs.conf文件：</p>
 <p>切换到nginx配置文件所在目录：<br><strong>cd /usr/local/nginx/conf</strong><br>默认情况下如下图：</p>
-<p><figure class="figure"><img src="/2018/06/22/hello-world/./images/1515912812356.jpg" alt="nginx默认配置"><figcaption class="figure__caption">nginx默认配置</figcaption></figure></p>
+<p><img src="/2018/06/22/hello-world/./images/1515912812356.jpg" alt="nginx默认配置"></p>
 <p>在该配置文件当中添加如下内容：<br>    <strong>location /group1/M00/{<br>                 root /home/fastdfs/fdfs_storage/data;<br>                 ngx_fastdfs_module;<br>    }</strong><br>    添加完以后的效果如下图：</p>
-<p><figure class="figure"><img src="/2018/06/22/hello-world/./images/1515913244841.jpg" alt="修改完以后的效果"><figcaption class="figure__caption">修改完以后的效果</figcaption></figure></p>
+<p><img src="/2018/06/22/hello-world/./images/1515913244841.jpg" alt="修改完以后的效果"></p>
 <blockquote>
 <p><strong>其中root /home/fastdfs/fdfs_storage都是需要提前创建好的</strong></p>
 </blockquote>
@@ -207,51 +317,50 @@
 <p>……(此处省略很多字)</p>
 <p>example file url:<br><strong><a href="http://172.16.36.245/group1/M00/00/00/rBAk9VhH11aAQznLAACgiYdLO3c42_big.jpeg" target="_blank" rel="noopener">http://172.16.36.245/group1/M00/00/00/rBAk9VhH11aAQznLAACgiYdLO3c42_big.jpeg</a></strong></p>
 
-	
+            </div>
 
-	
-		<span class="different-posts"><a href="/2018/06/22/hello-world/" onclick="window.history.go(-1); return false;">⬅️ Go back </a></span>
-
-	
-
-</article>
-
-	</main>
-
-	<footer class="footer">
-	<div class="footer-content">
-		
-	      <div class="footer__element">
-	<p>Hi there, <br />welcome to my Blog glad you found it. Have a look around, will you?</p>
+            <!-- Post Comments -->
+            
+    <!-- 使用 valine -->
+<div id="comment">
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#comment' ,
+        notify: true,
+        verify: false,
+        app_id: 'your appId',
+        app_key: 'your appkey',
+        placeholder: 'Please leave your footprints',
+        pageSize: '10',
+        avatar: '',
+        avatar_cdn: 'https://gravatar.loli.net/avatar/'
+    });
+</script>
 </div>
-
-	    
-	      <div class="footer__element">
-	<h5>Check out</h5>
-	<ul class="footer-links">
-		<li class="footer-links__link"><a href="/archives">Archive</a></li>
-		
-		  <li class="footer-links__link"><a href="/atom.xml">RSS</a></li>
-	    
-		<li class="footer-links__link"><a href="/about">about page</a></li>
-		<li class="footer-links__link"><a href="/tags">Tags</a></li>
-		<li class="footer-links__link"><a href="/categories">Categories</a></li>
-	</ul>
-</div>
-
-	    
-
-		<div class="footer-credit">
-			<span>© 2018 John Doe | Powered by <a href="https://hexo.io/">Hexo</a> | Theme <a href="https://github.com/HoverBaum/meilidu-hexo">MeiliDu</a></span>
-		</div>
-
-	</div>
+<style>
+   #comment{
+        padding: 2pc;
+    }
+</style>
 
 
-</footer>
-
-
-
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+            	<span id="busuanzi_container_site_pv">2018总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
 </body>
 
+
+
+ 	
 </html>
