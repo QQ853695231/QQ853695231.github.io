@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="theme-color" content="#33474d">
+	<title>FastDFS图片服务器搭建 | Hexo</title>
+	<link rel="stylesheet" href="/css/style.css" />
+	
+      <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+</head>
+
+<body>
+
+	<header class="header">
+		<nav class="header__nav">
+			
+				<a href="/archives" class="header__link">Archive</a>
+			
+				<a href="/tags" class="header__link">Tags</a>
+			
+				<a href="/atom.xml" class="header__link">RSS</a>
+			
+		</nav>
+		<h1 class="header__title"><a href="/">Hexo</a></h1>
+		<h2 class="header__subtitle"></h2>
+	</header>
+
+	<main>
+		<article>
+	
+		<h1>FastDFS图片服务器搭建</h1>
+	
+	<div class="article__infos">
+		<span class="article__date">2018-06-22</span><br />
+		
+		
+			<span class="article__tags">
+			  	<a class="article__tag-link" href="/tags/图片服务器-fastdfs-CentOS7/">图片服务器,fastdfs,CentOS7</a>
+			</span>
+		
+	</div>
+
+	
+
+	
+		<p>少侠，你是否在寻找一种轻量级的图片存储服务器，来来来，今天老司机带上你路，快快上车……</p>
+<p>来来来，骚年，啥也别说了，开始准备素材，把下面表格里面的东东准备好。</p>
+<h3 id="下载素材"><a href="#下载素材" class="headerlink" title="下载素材"></a>下载素材</h3><table>
+<thead>
+<tr>
+<th>文件名</th>
+<th>下载地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fastdfs-master.zip</td>
+<td><a href="https://github.com/happyfish100/FastDFS" target="_blank" rel="noopener">https://github.com/happyfish100/FastDFS</a></td>
+</tr>
+<tr>
+<td>fastdfs-nginx-module-master.zip</td>
+<td><a href="https://github.com/happyfish100/fastdfs-nginx-module" target="_blank" rel="noopener">https://github.com/happyfish100/fastdfs-nginx-module</a></td>
+</tr>
+<tr>
+<td>libfastcommon-master.zip</td>
+<td><a href="https://github.com/happyfish100/libfastcommon" target="_blank" rel="noopener">https://github.com/happyfish100/libfastcommon</a></td>
+</tr>
+<tr>
+<td>nginx稳定版 （Stable version）</td>
+<td><a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a></td>
+</tr>
+</tbody>
+</table>
+<p>==我这里用的nginx的版本是：nginx-1.12.2==</p>
+<hr>
+<p>老铁，下载完了吧，来来来，把你刚刚下载的文件都统一放到系统的这个目录下 <strong>/usr/local/src</strong>，并cd到该目录下，然后把他们都解压，如下是解压命令：</p>
+<hr>
+<p><em>==解压fastdfs-master.zip:==</em><br><strong>unzip fastdfs-master.zip</strong></p>
+<p><em>==解压fastdfs-nginx-module-master.zip==</em><br><strong>unzip fastdfs-nginx-module-master.zip</strong></p>
+<p><em>==解压libfastcommon-master.zip==</em><br><strong>unzip libfastcommon-master.zip</strong></p>
+<p><em>==解压libfastcommon-master.zip==</em><br><strong>unzip libfastcommon-master.zip</strong></p>
+<p><em>==解压nginx-1.12.2.tar.gz==</em><br><strong>tar -zxvf nginx-1.12.2.tar.gz</strong></p>
+<hr>
+<p>   至此，素材准备阶段告一段落，接下来就该安装依赖了，在CentOS里面有一个叫  <strong>yum</strong> 的牛逼东东，用它来安装依赖和其它库那叫一个爽，为了在安装依赖时能获取更快的下载速度，我们用的是阿里的yum源。<strong>注意：使用yum的时候一定要联网，联网，联网。</strong><br><em>==1、备份==</em><br><strong>mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</strong></p>
+<p><em>==2、下载新的CentOS-Base.repo 到<strong>/etc/yum.repos.d</strong>/目录下==</em><br><em>==<strong>CentOS5</strong>请使用下面的命令==</em><br><strong>wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-5.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-5.repo</a></strong></p>
+<p><em>==<strong>CentOS6</strong>请使用下面的命令==</em><br><strong>wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-6.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-6.repo</a></strong> </p>
+<p><em>==<strong>CentOS7</strong>请使用下面的命令==</em><br><strong>wget -O /etc/yum.repos.d/CentOS-Base.repo <a href="http://mirrors.aliyun.com/repo/Centos-7.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-7.repo</a></strong> </p>
+<p><em>==3、更新缓存==</em><br><strong>yum makecache</strong></p>
+<p><strong>yum至此配置成功</strong></p>
+<hr>
+<h3 id="接下来就是安装依赖的时候了："><a href="#接下来就是安装依赖的时候了：" class="headerlink" title="接下来就是安装依赖的时候了："></a>接下来就是安装依赖的时候了：</h3><table>
+<thead>
+<tr>
+<th>依赖名</th>
+<th>执行的命令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gcc</td>
+<td>yum install gcc-c++</td>
+<td>让屏幕飞一会儿</td>
+</tr>
+<tr>
+<td>libevent</td>
+<td>yum install libevent</td>
+<td>让屏幕飞一会儿</td>
+</tr>
+<tr>
+<td>pcre</td>
+<td>yum install -y pcre pcre-devel</td>
+<td>让屏幕飞一会儿</td>
+</tr>
+<tr>
+<td>zlib</td>
+<td>yum install -y zlib zlib-devel</td>
+<td>让屏幕飞一会儿</td>
+</tr>
+<tr>
+<td>openssl</td>
+<td>yum install -y openssl openssl-devel</td>
+<td>让屏幕飞一会儿</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="安装Nginx服务器与模块FastDFS-nginx-module："><a href="#安装Nginx服务器与模块FastDFS-nginx-module：" class="headerlink" title="安装Nginx服务器与模块FastDFS-nginx-module："></a>安装Nginx服务器与模块FastDFS-nginx-module：</h3><p>fastdfs-nginx-module-master.zip也是源码包，<strong>随着nginx一起编译，安装</strong>。<br>骚年，莫急，安装之前需要对fastdfs-nginx-module-master进行一下简单的配置：<br>进入到fastdfs-nginx-module-master所在的目录：<br><strong>cd /usr/local/src/fastdfs-nginx-module-master/src</strong><br>你会发现名为<strong>config</strong>的文件，打开该文件并编辑，如下所示：</p>
+<p><figure class="figure"><img src="/2018/06/22/hello-world/./images/1515907266176.jpg" alt="config文件"><figcaption class="figure__caption">config文件</figcaption></figure></p>
+<p><strong>你只需要找到图片当中红色杠标记行，把这一行里面的所有==local==干掉就行。</strong></p>
+<p>切换到 nginx 解压完以后的目录：<br><strong>cd /usr/local/src/nginx-1.12.2</strong><br>执行：<br><strong>./configure –add-module=/usr/local/src/fastdfs-nginx-module-master/src</strong><br>让你的屏幕飞一会儿吧……</p>
+<blockquote>
+<p>温馨提示：–add-module参数指定的是FastDFS-nginx-module模块所在的目录，在添加FastDFS-nginx-module模块时，路径一定指向src目录。</p>
+</blockquote>
+<p>屏幕飞完了吧，再执行：<br><strong>make</strong><br>make完了以后进行安装：<br><strong>make install</strong><br>至此安装Nginx服务器与模块FastDFS-nginx-module一并安装完成。</p>
+<p>接下来就该配置了：</p>
+<p>切换到<br>FastDFS-nginx-module模块所在的目录<br><strong>cd /usr/local/src/fastdfs-nginx-module-master/src</strong></p>
+<p>复制<strong>mod_fastdfs.conf</strong><br><strong>cp mod_fastdfs.conf /etc/fdfs</strong></p>
+<blockquote>
+<p>base_path=/home/fastdfs<br>group_name=group1<br>store_path0=/home/fastdfs/fdfs_storage<br>url_have_group_name = true</p>
+</blockquote>
+<p>修改刚刚复制到/etc/fdfs下的mod_fastdfs.conf文件：</p>
+<p>切换到nginx配置文件所在目录：<br><strong>cd /usr/local/nginx/conf</strong><br>默认情况下如下图：</p>
+<p><figure class="figure"><img src="/2018/06/22/hello-world/./images/1515912812356.jpg" alt="nginx默认配置"><figcaption class="figure__caption">nginx默认配置</figcaption></figure></p>
+<p>在该配置文件当中添加如下内容：<br>    <strong>location /group1/M00/{<br>                 root /home/fastdfs/fdfs_storage/data;<br>                 ngx_fastdfs_module;<br>    }</strong><br>    添加完以后的效果如下图：</p>
+<p><figure class="figure"><img src="/2018/06/22/hello-world/./images/1515913244841.jpg" alt="修改完以后的效果"><figcaption class="figure__caption">修改完以后的效果</figcaption></figure></p>
+<blockquote>
+<p><strong>其中root /home/fastdfs/fdfs_storage都是需要提前创建好的</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>还有最重要的一步就是复制另外2个配置文件到/etc/fdfs下面</strong></p>
+</blockquote>
+<p>切换到下面的目录：<br><strong>cd /usr/local/src/fastdfs-master/conf/</strong><br>复制文件：<br><strong>cp http.conf mime.types /etc/fdfs</strong></p>
+<p>配置完成后，启动nginx服务器：</p>
+<h3 id="安装FastDFS"><a href="#安装FastDFS" class="headerlink" title="安装FastDFS:"></a>安装FastDFS:</h3><p>在安装FastDFS之前需要先安装依赖：<strong>libfastcommon-master</strong></p>
+<p>进入ibfastcommon-master 目录：<br><strong>cd /usr/local/src/libfastcommon-master</strong></p>
+<p>编译libfastcommon<br><strong>./make.sh</strong></p>
+<p>安装libfastcommon<br><strong>./make.sh install</strong></p>
+<p>libfastcommon-master安装完成。</p>
+<p>正式进入安装FastDFS:<br>切换到 astdfs-master 目录<br><strong>cd /usr/local/src/fastdfs-master</strong><br>编译FastDFS<br><strong>./make.sh</strong></p>
+<p> 安装FastDFS<br><strong>./make.sh install</strong></p>
+<p>安装也完成了，开始配置吧！！！！！！<br>修改配置文件</p>
+<p>cd /etc/fdfs/</p>
+<p>会看到三个配置文件:</p>
+<p><strong>client.conf.sample, tracker.conf.sample,storage.conf.sample</strong></p>
+<p>复制,然后配置:</p>
+<p><strong>cp client.conf.sample client.conf</strong></p>
+<p><strong>cp tracker.conf.sample tracker.conf</strong></p>
+<p><strong>cp storage.conf.sample storage.conf</strong></p>
+<hr>
+<p>==配置storage.conf==</p>
+<p><strong>注意：同一个组内的不同的storage的配置要相同(方便同步文件)</strong></p>
+<p>配置storage属于哪个group：</p>
+<p><strong>group_name=group1</strong> (因为现在先只是配一个组,所以这里就为group1)</p>
+<p>配置<strong>base_path:</strong></p>
+<p>原来 base_path=/home/yuqing/fastdfs 这里需要改为自己的文件路径，</p>
+<p>如：<strong>base_path=/home/fastdfs</strong> (这里的文件目录如果没有，要自己新建，不然会报错)</p>
+<p>配置store_path0:</p>
+<p>这里 store_path0=/home/fastdfs 也要改为自己的文件路径</p>
+<p>如: <strong>store_path0=/home/fastdfs/fdfs_storage</strong> </p>
+<p>配置tracker_server:</p>
+<p>还有：tracker_server要改为自己的trakcer_server的ip</p>
+<p>如：<strong>tracker_server=172.16.36.245:22122</strong></p>
+<p>(若有特殊要求可查看文档根据实际情况配置)</p>
+<hr>
+<p>==配置tracker.conf==</p>
+<p>配置base_path:</p>
+<p>原来 base_path=/home/fastdfs 这里需要改为自己的文件路径，</p>
+<p>如：base_path=/home/fastdfs (这里的文件目录如果没有，要自己新建，</p>
+<p>不然会报错)</p>
+<p>(若有特殊要求可查看文档根据实际情况配置)</p>
+<hr>
+<p>==配置client.conf==</p>
+<p>配置base_path:<br>原来 base_path=/home/yuqing/fastdfs 这里需要改为自己的文件路径，<br>如：<strong>base_path=/home/fastdfs</strong> (这里的文件目录如果没有，要自己新建，不然会报错)</p>
+<p>配置tracker_server:<br>还有：tracker_server要改为自己的trakcer_server的ip</p>
+<p>如：<strong>tracker_server=172.16.36.245:22122</strong><br>(若有特殊要求可查看文档根据实际情况配置)</p>
+<hr>
+<p>==启动服务程序==<br><em>启动tracker server</em><br><strong>/usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf restart</strong></p>
+<p><em>启动storage server</em><br><strong>/usr/bin/fdfs_storaged /etc/fdfs/storage.conf restart</strong></p>
+<p>==启动测试程序==</p>
+<p><em>上传文件测试:</em></p>
+<p><strong>/usr/bin/fdfs_test /etc/fdfs/client.conf upload /mnt/test.jpg</strong><br>紧跟着会出现一堆返回信息：</p>
+<p>Copyright (C) 2008, Happy Fish / YuQing</p>
+<p>……(此处省略很多字)</p>
+<p>example file url:<br><strong><a href="http://172.16.36.245/group1/M00/00/00/rBAk9VhH11aAQznLAACgiYdLO3c42_big.jpeg" target="_blank" rel="noopener">http://172.16.36.245/group1/M00/00/00/rBAk9VhH11aAQznLAACgiYdLO3c42_big.jpeg</a></strong></p>
+
+	
+
+	
+		<span class="different-posts"><a href="/2018/06/22/hello-world/" onclick="window.history.go(-1); return false;">⬅️ Go back </a></span>
+
+	
+
+</article>
+
+	</main>
+
+	<footer class="footer">
+	<div class="footer-content">
+		
+	      <div class="footer__element">
+	<p>Hi there, <br />welcome to my Blog glad you found it. Have a look around, will you?</p>
+</div>
+
+	    
+	      <div class="footer__element">
+	<h5>Check out</h5>
+	<ul class="footer-links">
+		<li class="footer-links__link"><a href="/archives">Archive</a></li>
+		
+		  <li class="footer-links__link"><a href="/atom.xml">RSS</a></li>
+	    
+		<li class="footer-links__link"><a href="/about">about page</a></li>
+		<li class="footer-links__link"><a href="/tags">Tags</a></li>
+		<li class="footer-links__link"><a href="/categories">Categories</a></li>
+	</ul>
+</div>
+
+	    
+
+		<div class="footer-credit">
+			<span>© 2018 John Doe | Powered by <a href="https://hexo.io/">Hexo</a> | Theme <a href="https://github.com/HoverBaum/meilidu-hexo">MeiliDu</a></span>
+		</div>
+
+	</div>
+
+
+</footer>
+
+
+
+</body>
+
+</html>
